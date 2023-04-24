@@ -17,6 +17,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(),
@@ -108,6 +109,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(),
                 TimeUnit.MILLISECONDS
             )
             .distinctUntilChanged()
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { query ->
                 performSearch(query)
